@@ -5,3 +5,24 @@
    padding: 0;
    box-sizing: border-box;
 }
+
+html, body, #root {
+   height: 100%;
+}
+
+body {
+   font: 0.875rem sans-serif;
+   background: #efefef;
+}
+
+a {
+   text-decoration: none;
+}
+
+ul {
+   list-style: none;
+}
+
+button {
+   cursor: pointer;
+}
