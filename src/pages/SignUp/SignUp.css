@@ -1,0 +1,23 @@
+.container-center {
+   height: 100%;
+   padding: 0 0.75rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   
+   background: var(--bgDark);
+}
+
+.login {
+   width: 37.5rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+
+   background: var(--bgLight);
+}
+
+.login-area {
+   background: var(--mainColor);
+}
