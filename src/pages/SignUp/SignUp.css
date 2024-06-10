@@ -19,5 +19,14 @@
 }
 
 .login-area {
+   width: 100%;
+   display: flex;
+   justify-content: center;
    background: var(--mainColor);
+}
+
+.login-area img {
+   width: 170px;
+   height: 130px;
+   padding: 20px;
 }

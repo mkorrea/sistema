@@ -3,6 +3,9 @@
    --bgDark: #121212;
    --bgLight: #eaeaec;
    --mainColor: #181c2e;
+
+   --white: #fff;
+   --black: #000;
 }
 
 * {

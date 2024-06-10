@@ -19,5 +19,56 @@
 }
 
 .login-area {
+   width: 100%;
+   display: flex;
+   justify-content: center;
    background: var(--mainColor);
+}
+
+.login-area img {
+   width: 170px;
+   height: 130px;
+   padding: 20px;
+}
+
+form {
+   margin-top: 1.5rem;
+   width: 90%;
+   display: flex;
+   flex-direction: column;
+}
+
+form h1 {
+   text-align: center;
+   margin-bottom: 1rem;
+   color: var(--mainColor);
+}
+
+form input {
+   height: 2.18rem;
+   margin-bottom: 1rem;
+   padding: 0.62rem;
+   font-size: 0.937rem;
+   border: 0;
+   border-radius: 4px;
+   background: var(--white);
+}
+
+form input:focus {
+   outline: 1px solid var(--mainColor);
+   box-shadow: 0px 0px 3px var(--mainColor);
+}
+
+form button {
+   height: 2.18rem;
+   font-size: 1.3rem;
+   border: 0;
+   border-radius: 4px;
+   color: var(--white);
+   background: var(--mainColor);
+}
+
+.login a {
+   margin: 1.5rem 0;
+   color: var(--black);
 }
