@@ -1,6 +1,7 @@
 import './SignUp.css'
 
 import { useState } from 'react'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 import logo from '../../assets/logo.png'
 import { Link } from 'react-router-dom'
@@ -10,13 +11,22 @@ export function SignUp() {
    const [ email, setEmail ] = useState('')
    const [ password, setPassword ] = useState('')
 
+   async function handleRegister(e) {
+      e.preventDefault()
+
+      if ( name !== '' && email !== '' && password !== '') {
+         signInWithEmailAndPassword
+      }
+   }
+
+   
    return (
       <div className='container-center'>
          <div className="login">
             <div className="login-area">
                <img src={logo} alt="Logo do sistema" />
             </div>
-            <form>
+            <form onSubmit={handleRegister}>
                <h1>Nova conta</h1>
                <input 
                   type="text"
