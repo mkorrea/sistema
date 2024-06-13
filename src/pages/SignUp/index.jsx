@@ -1,10 +1,11 @@
 import './SignUp.css'
 
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
+import { Link } from 'react-router-dom'
+import { AuthContext } from '../../contexts/auth'
 
 import logo from '../../assets/logo.png'
-import { Link } from 'react-router-dom'
 
 export function SignUp() {
    const [ name, setName ] = useState('')
@@ -19,7 +20,8 @@ export function SignUp() {
       }
    }
 
-   
+   const  { signIn } = useContext(AuthContext)
+    
    return (
       <div className='container-center'>
          <div className="login">
