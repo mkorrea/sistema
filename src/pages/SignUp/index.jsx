@@ -6,21 +6,23 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth'
 
 import logo from '../../assets/logo.png'
+import { Loader } from 'lucide-react'
 
 export function SignUp() {
    const [ name, setName ] = useState('')
    const [ email, setEmail ] = useState('')
    const [ password, setPassword ] = useState('')
 
+   const  { signUp, loadingAuth } = useContext(AuthContext)
+
    async function handleRegister(e) {
       e.preventDefault()
 
       if ( name !== '' && email !== '' && password !== '') {
-         signInWithEmailAndPassword
+         await signUp( name, email, password )
       }
    }
 
-   const  { signIn } = useContext(AuthContext)
     
    return (
       <div className='container-center'>
@@ -49,10 +51,15 @@ export function SignUp() {
                   onChange={ (e) => setPassword(e.target.value)}
                />
 
-               <button type="submit"> Cadastrar </button>
+               <button type="submit"> 
+                  {
+                     loadingAuth ? <Loader className='loading-icon'/> :  'Cadastrar'
+                  }
+               </button>
             </form>
             <Link to='/'>Já possui uma conta ? Faça login! </Link>
          </div>
       </div>
    )
 }
+
