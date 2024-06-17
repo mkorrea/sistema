@@ -1,7 +1,9 @@
 import { useState, createContext, useEffect } from "react";
-import { auth, db } from '../services/FirebaseConnections'
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db, storage } from '../services/FirebaseConnections'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 export const AuthContext = createContext({})
@@ -10,12 +12,32 @@ export function AuthProvider( { children } ) {
    const [ user, setUser ] = useState(null)
 
    const [ loadingAuth, setLoadingAuth ] = useState(false)
+
+   const navigate = useNavigate()
    
    // logar user
    function signIn( email, password ) {
-      console.log(email)
-      console.log(password)
-      alert("foi")
+      setLoadingAuth(true)
+      
+      signInWithEmailAndPassword(auth, email, password)
+      .then( async (value)=> {
+         let uid = value.user.uid
+
+         const docRef = doc(db, "users", uid)
+         const docSnap = await getDoc(docRef)
+
+         let userData = {
+            uid,
+            name: docSnap.data().name,
+            email,
+            avatarUrl: docSnap.data().avatarUrl
+         }
+
+         setUser(userData)
+         storageUser(userData)
+         setLoadingAuth(false)
+         toast.success('Bem-vindo(a) de volta!')
+      })
    }
    
    // cadastrar novo user
@@ -37,12 +59,19 @@ export function AuthProvider( { children } ) {
                avatarUrl: null
             }
             setUser(userData)
+            storageUser(userData)
             setLoadingAuth(false)
+            toast.success("Seja bem-vindo(a)!")
+            navigate('/dashboard')
          })
       })
       .catch( (err) => {
          console.log(`erro ao cadastrar: ${err}`)
       })
+   }
+
+   function storageUser(data) {
+      localStorage.setItem('@tickets', JSON.stringify(data))
    }
 
    return (

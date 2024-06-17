@@ -78,17 +78,16 @@ form button {
 }
 
 .loading-icon {
-   
+   margin-top: 4px;
+   animation: spin 1.5s linear infinite;
 }
 
-@keyframes {
-   spin {
-      from {
-         transform: rotate(0%)
-         }
-      to {
-         transform: rotate(0%)
-      }
-   
-         }
+@keyframes spin {
+   from {
+      transform: rotate(0deg);
+   }
+   to {
+      transform: rotate(360deg);
+   }
 }
+ 
