@@ -1,6 +1,6 @@
 import { useState, createContext, useEffect } from "react";
 import { auth, db, storage } from '../services/FirebaseConnections'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -12,9 +12,23 @@ export function AuthProvider( { children } ) {
    const [ user, setUser ] = useState(null)
 
    const [ loadingAuth, setLoadingAuth ] = useState(false)
-
+   const [ loading, setLoading ] = useState(true)
    const navigate = useNavigate()
    
+   useEffect( ()=>{
+      async function loadUser(){
+         const storageUser = localStorage.getItem('@tickets')
+
+         if(storageUser) {
+            setUser(JSON.parse(storageUser))
+            setLoading(false)
+         }
+         setLoading(false)
+      }
+
+      loadUser()
+   }, [])
+
    // logar user
    async function signIn( email, password ) {
       setLoadingAuth(true)
@@ -46,6 +60,7 @@ export function AuthProvider( { children } ) {
       })
    }
    
+
    // cadastrar novo user
    async function signUp( name, email, password ) {
       setLoadingAuth(true)
@@ -78,6 +93,15 @@ export function AuthProvider( { children } ) {
       })
    }
 
+
+   // logout user
+   async function logout() {
+      await signOut(auth)
+      localStorage.removeItem('@tickets')
+      setUser(null)
+   }
+   
+   
    function storageUser(data) {
       localStorage.setItem('@tickets', JSON.stringify(data))
    }
@@ -89,7 +113,9 @@ export function AuthProvider( { children } ) {
             user,
             signIn,
             signUp,
-            loadingAuth
+            logout,
+            loadingAuth,
+            loading
          }}
       >
       {[children]}
