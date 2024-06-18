@@ -16,14 +16,14 @@ export function AuthProvider( { children } ) {
    const navigate = useNavigate()
    
    // logar user
-   function signIn( email, password ) {
+   async function signIn( email, password ) {
       setLoadingAuth(true)
       
-      signInWithEmailAndPassword(auth, email, password)
+      await signInWithEmailAndPassword(auth, email, password)
       .then( async (value)=> {
          let uid = value.user.uid
 
-         const docRef = doc(db, "users", uid)
+         const docRef = doc(db, 'users', uid)
          const docSnap = await getDoc(docRef)
 
          let userData = {
@@ -36,7 +36,13 @@ export function AuthProvider( { children } ) {
          setUser(userData)
          storageUser(userData)
          setLoadingAuth(false)
-         toast.success('Bem-vindo(a) de volta!')
+         toast.success("Seja bem-vindo(a)!")
+         navigate('/dashboard')
+      })
+      .catch( (err) => {
+         console.log(`erro ao logar: ${err}`)
+         setLoadingAuth(false)
+         toast.error('Ops, algo deu errado!')
       })
    }
    
@@ -67,6 +73,8 @@ export function AuthProvider( { children } ) {
       })
       .catch( (err) => {
          console.log(`erro ao cadastrar: ${err}`)
+         setLoadingAuth(false)
+         toast.error('Ops, algo deu errado!')
       })
    }
 

@@ -1,7 +1,6 @@
 import './SignUp.css'
 
 import { useState, useContext } from 'react'
-import { signInWithEmailAndPassword } from 'firebase/auth'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth'
 
