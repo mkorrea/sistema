@@ -50,13 +50,13 @@ export function AuthProvider( { children } ) {
          setUser(userData)
          storageUser(userData)
          setLoadingAuth(false)
-         toast.success("Seja bem-vindo(a)!")
+         toast.success("Welcome!")
          navigate('/dashboard')
       })
       .catch( (err) => {
-         console.log(`erro ao logar: ${err}`)
+         console.log(`error: ${err}`)
          setLoadingAuth(false)
-         toast.error('Ops, algo deu errado!')
+         toast.error('Whoops, something is missing!')
       })
    }
    
@@ -82,14 +82,14 @@ export function AuthProvider( { children } ) {
             setUser(userData)
             storageUser(userData)
             setLoadingAuth(false)
-            toast.success("Seja bem-vindo(a)!")
+            toast.success("Welcome!")
             navigate('/dashboard')
          })
       })
       .catch( (err) => {
-         console.log(`erro ao cadastrar: ${err}`)
+         console.log(`error: ${err}`)
          setLoadingAuth(false)
-         toast.error('Ops, algo deu errado!')
+         toast.error('Whoops, something is missing!')
       })
    }
 
@@ -111,11 +111,13 @@ export function AuthProvider( { children } ) {
          value={{ 
             signed: !!user, // !! transforma em boolean, nesse caso, como user é null = signed: false   ||  se tem algum dado dentro de user, !!user retorna "true"
             user,
+            setUser,
             signIn,
             signUp,
             logout,
             loadingAuth,
-            loading
+            loading,
+            storageUser
          }}
       >
       {[children]}
