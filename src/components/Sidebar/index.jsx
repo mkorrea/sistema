@@ -19,7 +19,7 @@ export function Sidebar() {
 
          <Link to='/dashboard'>
             <Home color='#fff' size={24} />
-            Home
+            Dashboard
          </Link>
 
          <Link to='/customers'>
