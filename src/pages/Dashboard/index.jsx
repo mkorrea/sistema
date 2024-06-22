@@ -30,9 +30,6 @@ export function Dashboard() {
                   <Plus color="#fff" size={25}/>
                   Add info
                </Link>
-               <div className="container dashboard">
-                  taedfa
-               </div>
 
                <table>
                   <thead>
@@ -49,7 +46,32 @@ export function Dashboard() {
                      <tr>
                         <td data-label="Cliente"> Marcado Litoral </td>
                         <td data-label="Topic"> Suporte </td>
-                        <td data-label="Status"> Open </td>
+                        <td data-label="Status">
+                           <span className="badge" style={{ background: 'var(--gray400)' }}>
+                              Open
+                           </span>
+                        </td>
+                        <td data-label="Registered in"> 14/06/24 </td>
+                        <td data-label="#"> 
+                           <button className="action" style={{background: 'var(--blue600)'}}>
+                              <Search color="#fff" size={17} /> 
+                           </button>  
+                           <button className="action" style={{background: 'var(--yellow500)'}}>
+                              <Edit2 color="#fff" size={17} />
+                           </button>
+                        </td>
+                     </tr>
+
+
+
+                     <tr>
+                        <td data-label="Cliente"> Informatica </td>
+                        <td data-label="Topic"> Suporte </td>
+                        <td data-label="Status">
+                           <span className="badge" style={{ background: 'var(--gray400)' }}>
+                              Open
+                           </span>
+                        </td>
                         <td data-label="Registered in"> 14/06/24 </td>
                         <td data-label="#"> 
                            <button className="action" style={{background: 'var(--blue600)'}}>
