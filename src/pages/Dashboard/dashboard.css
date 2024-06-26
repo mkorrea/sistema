@@ -78,6 +78,12 @@ table td .badge {
    color: var(--white);
 }
 
+.dashboard span {
+   margin: 1.5rem 0;
+   font-size: 1.1rem;
+   font-weight: bold;
+}
+
 
 @media screen and (max-width: 600px) {
    table {
