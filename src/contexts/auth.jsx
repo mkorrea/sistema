@@ -50,7 +50,7 @@ export function AuthProvider( { children } ) {
          setUser(userData)
          storageUser(userData)
          setLoadingAuth(false)
-         toast.success("Welcome!")
+         toast.success("Welcome again!")
          navigate('/dashboard')
       })
       .catch( (err) => {

@@ -28,7 +28,7 @@ export function Dashboard() {
             <>
                <Link to="/dashboard/new" className="new">
                   <Plus color="#fff" size={25}/>
-                  Add info
+                  New ticket
                </Link>
 
                <table>
