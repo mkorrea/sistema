@@ -6,8 +6,9 @@ import { Sidebar } from '../../components/Sidebar'
 import { Title } from '../../components/Title'
 import { PlusCircle } from 'lucide-react'
 import { AuthContext } from '../../contexts/auth'
-import { collection, getDocs } from 'firebase/firestore'
+import { addDoc, collection, getDocs } from 'firebase/firestore'
 import { db } from '../../services/FirebaseConnections'
+import { toast } from 'react-toastify'
 
 const listRef = collection(db, 'customers')
 
@@ -65,6 +66,29 @@ export function New() {
    function handleChangeOption (e) {
       setStatus(e.target.value)
    }
+
+   async function handleRegister(e) {
+      e.preventDefault()
+
+      await addDoc(collection(db, "tickets"), {
+         created: new Date(),
+         client: customers[selectedCustomer].fantasyName,
+         clientId: customers[selectedCustomer].id,
+         subject,
+         additional,
+         status,
+         userId: user.uid
+      })
+      .then( ()=>{
+         toast.success("New ticket registered!")
+         setAdditional('')
+         setSelectedCustomer[0]
+      })
+      .catch( (err)=>{
+         toast.error("Whoops, error to submit, try again later!")
+         console.log(err)
+      })
+   }
    
    return(
       <div>
@@ -76,7 +100,7 @@ export function New() {
             </Title>
 
             <div className="container">
-               <form className="form-profile">
+               <form className="form-profile" onSubmit={handleRegister}>
                   <label> Clients </label>
                      {
                         loadCustomer ? (
