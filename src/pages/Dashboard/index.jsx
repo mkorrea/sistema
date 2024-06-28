@@ -98,6 +98,30 @@ export function Dashboard() {
                      </thead>
 
                      <tbody>
+                        {tickets.map((item, index)=>{
+                           return(
+                              <tr key={index}>
+                                 <td data-label="Cliente"> {item.client} </td>
+                                 <td data-label="Topic"> {item.subject} </td>
+                                 <td data-label="Status">
+                                    <span className="badge" style={{ background: 'var(--gray400)' }}>
+                                       {item.status}
+                                    </span>
+                                 </td>
+                                 <td data-label="Registered in"> 14/06/24 </td>
+                                 <td data-label="#"> 
+                                       <button className="action" style={{background: 'var(--blue600)'}}>
+                                       <Search color="#fff" size={17} /> 
+                                    </button>  
+                                    <button className="action" style={{background: 'var(--yellow500)'}}>
+                                       <Edit2 color="#fff" size={17} />
+                                    </button>
+                                 </td>
+                              </tr>
+                           )
+                        })}
+
+
                         <tr>
                            <td data-label="Cliente"> Marcado Litoral </td>
                            <td data-label="Topic"> Suporte </td>
