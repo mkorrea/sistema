@@ -11,6 +11,7 @@ import { Backpack, Edit, Edit2, Loader, MessageSquare, Plus, Search } from "luci
 import { collection, getDocs, limit, orderBy, query, startAfter } from "firebase/firestore"
 import { db } from "../../services/FirebaseConnections"
 import { format } from "date-fns"
+import { Modal } from "../../components/Modal"
 
 const listRef = collection(db, "tickets")
 
@@ -153,9 +154,9 @@ export function Dashboard() {
                                        <button className="action" style={{background: 'var(--blue600)'}}>
                                        <Search color="#fff" size={17} /> 
                                     </button>  
-                                    <button className="action" style={{background: 'var(--yellow500)'}}>
+                                    <Link to={`/dashboard/new/${item.id}`} className="action" style={{background: 'var(--yellow500)'}}>
                                        <Edit2 color="#fff" size={17} />
-                                    </button>
+                                    </Link>
                                  </td>
                               </tr>
                            )
@@ -173,6 +174,8 @@ export function Dashboard() {
 
             </>
          </div>
+
+         <Modal />
       </div>
    )
 }

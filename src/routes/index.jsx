@@ -18,7 +18,9 @@ export function RoutesApp() {
          <Route path='/dashboard' element={ <Private> <Dashboard/> </Private> } />
          <Route path='/profile' element={ <Private> <Profile/> </Private> } />
          <Route path='/customers' element={ <Private> <Customers/> </Private> } />
+         
          <Route path='/dashboard/new' element={ <Private> <New/> </Private> } />
+         <Route path='/dashboard/new/:id' element={ <Private> <New/> </Private> } />
       </Routes>
    )
 }

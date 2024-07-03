@@ -6,14 +6,16 @@ import { Sidebar } from '../../components/Sidebar'
 import { Title } from '../../components/Title'
 import { PlusCircle } from 'lucide-react'
 import { AuthContext } from '../../contexts/auth'
-import { addDoc, collection, getDocs } from 'firebase/firestore'
+import { addDoc, collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore'
 import { db } from '../../services/FirebaseConnections'
 import { toast } from 'react-toastify'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const listRef = collection(db, 'customers')
 
 export function New() {
    const { user } = useContext(AuthContext)
+   const { id } = useParams()
 
    const [ customers, setCustomers ] = useState([])
    const [ loadCustomer, setLoadCustomer ] = useState(true) 
@@ -23,7 +25,10 @@ export function New() {
    const [ subject, setSubject ] = useState('Support')
    const [ status, setStatus ] = useState('Open')
 
+   const [ editTicket, setEditTicket ] = useState(false)
 
+   const navigate = useNavigate()
+   
    useEffect( ()=>{
       async function loadCustomer() {
          const querySnapshot = await getDocs(listRef)
@@ -45,6 +50,10 @@ export function New() {
             }
             setCustomers(list)
             setLoadCustomer(false)
+
+            if(id) {
+               loadId(list)
+            }
          })
          .catch((err)=>{
             console.log(err)
@@ -54,8 +63,29 @@ export function New() {
       }
 
       loadCustomer()
-   }, [])
+   }, [ id ])
 
+   async function loadId(list) {
+      const docRef = doc(db, "tickets", id)
+      await getDoc(docRef)
+      .then((snapshot)=>{
+
+         let index = list.findIndex(item => item.id === snapshot.data().clientId)
+         setSelectedCustomer(index)
+         setSubject(snapshot.data().subject)
+         setStatus(snapshot.data().status)
+         setAdditional(snapshot.data().additional)
+         console.log(snapshot)
+
+         setEditTicket(true)
+      })
+      .catch((err)=>{
+         console.log(err)
+         toast.error("Unable to load ticket")
+         setEditTicket(false)
+      })
+   }
+   
    function handleChangeCustomer (e) { 
       setSelectedCustomer(e.target.value)
    }
@@ -70,6 +100,30 @@ export function New() {
    async function handleRegister(e) {
       e.preventDefault()
 
+      if(editTicket){
+         const docRef = doc(db, "tickets", id)
+         await updateDoc(docRef, {
+            client: customers[selectedCustomer].fantasyName,
+            clientId: customers[selectedCustomer].id,
+            subject,
+            additional,
+            status,
+            userId: user.uid
+         })
+         .then( ()=>{
+            toast.info("ticket successfully updated!")
+            setSelectedCustomer[0] 
+            setAdditional('')
+            navigate("/dashboard")
+         })
+         .catch( (err)=>{
+            toast.error("Whoops, error to update, try again later!")
+            console.log(err)
+         })
+         return
+      }
+      
+
       await addDoc(collection(db, "tickets"), {
          created: new Date(),
          client: customers[selectedCustomer].fantasyName,
@@ -81,8 +135,8 @@ export function New() {
       })
       .then( ()=>{
          toast.success("New ticket registered!")
-         setAdditional('')
          setSelectedCustomer[0]
+         setAdditional('')
       })
       .catch( (err)=>{
          toast.error("Whoops, error to submit, try again later!")
@@ -95,7 +149,7 @@ export function New() {
          <Sidebar />
          
          <div className="content">
-            <Title name="New ticket">
+            <Title name={id ? "Update ticket" : "New ticket"}>
                <PlusCircle size={25}/>
             </Title>
 
@@ -167,7 +221,7 @@ export function New() {
                      onChange={ (e)=>setAdditional(e.target.value) }
                   />
 
-                  <button> Submit </button>
+                  <button> {id ? 'Update ticket' : 'Submit'} </button>
                   
                </form>
             </div>
