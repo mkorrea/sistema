@@ -24,6 +24,9 @@ export function Dashboard() {
    const [ lastDoc, setLastDoc ] = useState()
    const [ loadingMore, setLoadingMore ] = useState(false)
 
+   const [ showTicketModal, setShowTicketModel ] = useState(false)
+   const [ detail, setDetail ] = useState()
+
    useEffect(()=>{
       async function loadTickets() {
          const q = query(listRef, orderBy('created', 'desc'), limit(5))
@@ -79,6 +82,14 @@ export function Dashboard() {
       const querySnapshot = await getDocs(q)
       await updateState(querySnapshot)
    }
+   
+   function handleOpenModal(item) {
+
+      setShowTicketModel(!showTicketModal)
+      setDetail(item)
+   }
+
+   
    
    if(loading) {
       return(
@@ -151,7 +162,11 @@ export function Dashboard() {
                                  </td>
                                  <td data-label="Registered in"> {item.createdFormat} </td>
                                  <td data-label="#"> 
-                                       <button className="action" style={{background: 'var(--blue600)'}}>
+                                    <button 
+                                       className="action" 
+                                       style={{background: 'var(--blue600)'}} 
+                                       onClick={ () => handleOpenModal(item) }
+                                    >
                                        <Search color="#fff" size={17} /> 
                                     </button>  
                                     <Link to={`/dashboard/new/${item.id}`} className="action" style={{background: 'var(--yellow500)'}}>
@@ -175,7 +190,12 @@ export function Dashboard() {
             </>
          </div>
 
-         <Modal />
+         {showTicketModal && 
+            <Modal 
+               content={detail}
+               close={ () => setShowTicketModel(!showTicketModal) }
+            />
+         }
       </div>
    )
 }

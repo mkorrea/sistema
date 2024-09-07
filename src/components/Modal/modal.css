@@ -38,6 +38,13 @@
    margin-right: 0.25rem;
 }
 
+.close-bg {
+   width: 100vw;
+   height: 100vh;
+   position: absolute;
+   z-index: -1;
+}
+
 .modal .row {
    margin-bottom: 1rem;
 }
@@ -61,4 +68,12 @@
    padding-top: 0.5rem;
    white-space: pre-wrap;
    line-height: 150%;
+}
+
+.row .badge {
+   margin-left: 1rem;
+   padding: 0.187rem 0.437rem;
+   border-radius: 3px;
+   color: var(--white);
+
 }

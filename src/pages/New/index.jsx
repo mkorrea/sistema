@@ -174,11 +174,18 @@ export function New() {
 
                   
                   <label> Subject </label>
-                     <select value={subject} onChange={ handleChangeSelect }>
-                        <option value="Support"> Support </option>
-                        <option value="Technical Visit"> Technical Visit </option>
-                        <option value="Financial"> Financial </option>
-                     </select>
+                  <select value={subject} onChange={ handleChangeSelect }>
+                    <option value="Support"> Support </option>
+                    <option value="Technical Visit"> Technical Visit </option>
+                    <option value="Financial"> Financial </option>
+                    <option value="Reports"> Reports </option>
+                    <option value="User Management"> User Management </option>
+                    <option value="System Maintenance"> System Maintenance </option>
+                    <option value="Billing"> Billing </option>
+                    <option value="Account Settings"> Account Settings </option>
+                    <option value="Feedback"> Feedback </option>
+                    <option value="Security"> Security </option>
+                </select>
                      
                   <label> Status </label>
                   <div className="status">

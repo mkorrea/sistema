@@ -1,11 +1,12 @@
 import { X } from 'lucide-react'
 import './modal.css'
 
-export function Modal() {
+export function Modal( {content, close} ) {
    return (
       <div className='modal'>
+         <div className="close-bg" onClick={ close }></div>
          <div className="container">
-            <button className="close">
+            <button className="close" onClick={ close }>
                <X size={25} color='#fff' />
                Close
             </button>
@@ -15,32 +16,31 @@ export function Modal() {
 
                <div className="row">
                   <span>
-                     Client: <i>igreja</i>
+                     Client: <i>{content.client}</i>
                   </span>
                </div>
 
                <div className="row">
                   <span>
-                     Subject: <i>support</i>
+                     Subject: <i> {content.subject} </i>
                   </span>
                   <span>
-                     Registered in: <i>14/06/24</i>
+                     Registered in: <i> {content.createdFormat} </i>
                   </span>
                </div>
                
                <div className="row">
                   <span>
-                     Status: <i>Open</i>
+                     Status: <i className="badge" style={{ background: content.status === 'Open' ? 'var(--green500)' : 'var(--gray400)' }}> {content.status} </i>
                   </span>
                </div>
 
-               <>
-                  <h3> Addiction: </h3>
-                  <p>
-                  support to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinhasupport to carinha
-                  </p>
-                  
-               </>
+               {content.additional !== '' && (
+                  <>
+                     <h3> Addiction: </h3>
+                     <p> {content.additional} </p>
+                  </>
+               )}
             </main>
          </div>
       </div>
